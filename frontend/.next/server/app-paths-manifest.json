@@ -1,8 +1,0 @@
-{
-  "/events/page": "app/events/page.js",
-  "/profile/page": "app/profile/page.js",
-  "/myevents/page": "app/myevents/page.js",
-  "/contactus/page": "app/contactus/page.js",
-  "/admindashboard/page": "app/admindashboard/page.js",
-  "/page": "app/page.js"
-}
