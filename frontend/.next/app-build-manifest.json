@@ -12,21 +12,17 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/eventdetail/[slug]/page": [
+    "/events/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/eventdetail/[slug]/page.js"
+      "static/css/app/events/page.css",
+      "static/chunks/app/events/page.js"
     ],
     "/myevents/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/myevents/page.css",
       "static/chunks/app/myevents/page.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
     ]
   }
 }
