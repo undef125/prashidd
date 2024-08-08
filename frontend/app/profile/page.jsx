@@ -1,59 +1,54 @@
 import React from 'react'
+import './profile.css'
 
 const page = () => {
   return (
-    <>
-    <section className='d-flex justify-content-center'  style={{ marginBottom: "20px" }}>
+    <> <div class="container">
+    <div class="profile-header">
+        <img src="https://via.placeholder.com/100" alt="Profile Image" class="profile-image"/>
+        <h1 class="name">Shamim Hossain</h1>
+        <p class="username">@shamingraphics</p>
+        <button class="edit-profile-button">Edit Profile</button>
+    </div>
+    
+    <div class="section">
+        <h2 class="section-title">Settings</h2>
+        <ul class="section-content">
+            <li class="section-item">Billing Details</li>
+            <li class="section-item">User Management</li>
+            <li class="section-item">Information</li>
+            <li class="section-item">Log out</li>
+        </ul>
+    </div>
 
-<div className="box1 box" style={{ height: "90vh", width: "50vw"}}>
-  <div className="content row gy-5">
-    <div className="image">
-      <img src="https://i.postimg.cc/bryMmCQB/profile-image.jpg" alt="Profile Image" className='h-50 ' style={{ width: "300px" }}/>
+    <div class="profile-details">
+        <div class="detail-item">
+            <span class="detail-title">Name</span>
+            <span class="detail-text">Shamim Hossain</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-title">Email Address</span>
+            <span class="detail-text">youremail@gmail.com</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-title">Username</span>
+            <span class="detail-text">@shamingraphics</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-title">Password</span>
+            <span class="detail-text">••••••••</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-title">Birth Date</span>
+            <span class="detail-text">10.23.1989</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-title">Joined</span>
+            <span class="detail-text">Joined at March 2022</span>
+        </div>
+        <button class="logout-button">Logout</button>
     </div>
-    <div className="level">
-      <p>PRO</p>
-    </div>
-    <div className="text">
-      <p className="name fs-2">Ethan Rivers</p>
-      <p className="job_title fs-5">random@gmail.com</p>
-      <p className="job_discription">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam atque, ipsam a amet laboriosam eligendi.</p>
-    </div>
-    <div className="icons">
-      <button>
-        <ion-icon name="logo-dribbble"></ion-icon>
-      </button>
-      <button>
-        <ion-icon name="logo-instagram"></ion-icon>
-      </button>
-      <button>
-        <ion-icon name="logo-twitter"></ion-icon>
-      </button>
-      <button>
-        <ion-icon name="logo-linkedin"></ion-icon>
-      </button>
-      <button>
-        <ion-icon name="logo-facebook"></ion-icon>
-      </button>
-      <button>
-        <ion-icon name="logo-behance"></ion-icon>
-      </button>
-    </div>
-    <div className="button">
-      <div>
-        <button className="message" type="button">My events</button>
-      </div>
-      <div>
-        <button className="connect" type="button">Edit</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-</section>
-
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script></>
+</div></>
   )
 }
 

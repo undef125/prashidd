@@ -13,7 +13,7 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg">
           <div className="container">
             <a className="navbar-brand text-white" onClick={()=> {router.push("/")}}>
-              <img src="Kathford-logo.png" alt="" className="img-fluid" style={{height:"50px"}}/>
+              <img src="Kathford-logo.png" alt="" className="img-fluid"/>
             </a>
             <button
               className="navbar-toggler"
@@ -43,27 +43,32 @@ const Navbar = () => {
               <div className="offcanvas-body text-white">
                 <ul className="navbar-nav justify-content-end flex-grow-1 pe-3 align-items-center gap-4">
                   <li className="nav-item">
-                    <a className="nav-link active text-white fs-4 " aria-current="page" onClick={()=> {router.push("/")}}>
+                    <a className="nav-link active text-white" aria-current="page" onClick={()=> {router.push("/")}}>
                       Home
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link text-white fs-4" onClick={()=> {router.push("/events")}}>
+                    <a className="nav-link text-white" onClick={()=> {router.push("/events")}}>
                       Events
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link text-white fs-4" onClick={()=> {router.push("/myevents")}}>
+                    <a className="nav-link text-white" onClick={()=> {router.push("/myevents")}}>
                       My events
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link text-white fs-4" href="#">
+                    <a className="nav-link text-white" href="#">
                       Log out
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link text-white fs-4" onClick={()=> {router.push("/profile")}}>
+                    <a className="nav-link text-white" onClick={()=> {router.push("/contactus")}}>
+                      Contact Us
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link text-white" onClick={()=> {router.push("/profile")}}>
                     <CgProfile />
                     </a>
                   </li>

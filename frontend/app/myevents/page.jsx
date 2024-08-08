@@ -9,8 +9,8 @@ const page = () => {
     <>
       <div className={pacifico.className}>
         <h2
-          className="text-center text-white display-2"
-          style={{ padding: "30px" }}
+          className="text-center display-2 fs-1"
+          style={{ padding: "30px", color: "#2F2771"}}
         >
           My Events
         </h2>
