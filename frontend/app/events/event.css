@@ -1,0 +1,20 @@
+
+.categoryListText li a{
+    border-radius: 5px;
+    color: white;
+}
+.categoryListText li a:hover{
+    transform: translateX(10px);
+    transition: .5s;
+}
+.searchBar{
+    border: 2px solid #2F2771;
+}
+.searchBar:focus{
+    border: none;
+}
+.searchBox{
+    background-color: #2F2771;
+    color: white;
+}
+/* 5FC8ED */

@@ -3,6 +3,7 @@ import React from "react";
 import { Pacifico } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Card from "@/components/Card";
+import './event.css'
 const pacifico = Pacifico({ subsets: ["latin"], weight: "400" });
 
 const page = () => {
@@ -11,14 +12,14 @@ const page = () => {
     <>
       <div  className={pacifico.className}>
         <h2
-          className="text-center text-black display-2"
+          className="text-center  display-2 fs-1 mt-4"  style={{color:"#2F2771"}}
         >
           Events
         </h2>
       </div>
       <div className="container" >
         <div className="d-flex justify-content-between pt-3">
-          <div className="btn-group dropend">
+          <div className="btn-group dropend" style={{background:"#2F2771"}}>
             <button
               type="button"
               className="btn btn-secondary dropdown-toggle"
@@ -26,30 +27,23 @@ const page = () => {
               aria-expanded="false"
               style={{ backgroundColor: "rgb(47, 39, 113)" }}
             >
-              Dropup
+              Category
             </button>
-            <ul className="dropdown-menu">
+            <ul className="dropdown-menu categoryListText" style={{background:"#2F2771"}}>
               <li>
                 <a className="dropdown-item" href="#">
-                  Action
+                  Category A
                 </a>
               </li>
               <li>
                 <a className="dropdown-item" href="#">
-                  Another action
+                Category B
                 </a>
               </li>
+                {/* <hr className="dropdown-divider" /> */}
               <li>
                 <a className="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </li>
-              <li>
-                <hr className="dropdown-divider" />
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Separated link
+                Category C
                 </a>
               </li>
             </ul>
@@ -57,12 +51,12 @@ const page = () => {
           <div>
             <form className="d-flex" role="search">
               <input
-                className="form-control me-2"
+                className="form-control me-2 searchBar"
                 type="search"
-                placeholder="Search"
+                placeholder="Search events"
                 aria-label="Search"
               />
-              <button className="btn btn-outline-success" type="submit">
+              <button className="btn searchBox" type="submit">
                 Search
               </button>
             </form>

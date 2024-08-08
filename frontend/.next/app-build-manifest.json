@@ -12,16 +12,40 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/eventdetail/[slug]/page": [
+    "/contactus/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/eventdetail/[slug]/page.js"
+      "static/css/app/contactus/page.css",
+      "static/chunks/app/contactus/page.js"
+    ],
+    "/events/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/events/page.css",
+      "static/chunks/app/events/page.js"
     ],
     "/myevents/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/myevents/page.css",
       "static/chunks/app/myevents/page.js"
+    ],
+    "/profile/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/profile/page.css",
+      "static/chunks/app/profile/page.js"
+    ],
+    "/eventcreate/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/eventcreate/page.js"
+    ],
+    "/admindashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admindashboard/page.js",
+      "static/css/app/admindashboard/page.css"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",
