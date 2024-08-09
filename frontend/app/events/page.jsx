@@ -3,23 +3,41 @@ import React from "react";
 import { Pacifico } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Card from "@/components/Card";
-import './event.css'
+import { useState, useEffect } from "react";
+import axios from "axios";
+import "./event.css";
 const pacifico = Pacifico({ subsets: ["latin"], weight: "400" });
 
 const page = () => {
+  const [eventdata, setEventData] = useState([]);
+
+  const getevents = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/getevents");
+
+      console.log(response.data);
+      setEventData(response.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getevents();
+  });
   return (
     // <Navbar/>
     <>
-      <div  className={pacifico.className}>
+      <div className={pacifico.className}>
         <h2
-          className="text-center  display-2 fs-1 mt-4"  style={{color:"#2F2771"}}
+          className="text-center  display-2 fs-1 mt-4"
+          style={{ color: "#2F2771" }}
         >
           Events
         </h2>
       </div>
-      <div className="container" >
+      <div className="container">
         <div className="d-flex justify-content-between pt-3">
-          <div className="btn-group dropend" style={{background:"#2F2771"}}>
+          <div className="btn-group dropend" style={{ background: "#2F2771" }}>
             <button
               type="button"
               className="btn btn-secondary dropdown-toggle"
@@ -29,7 +47,10 @@ const page = () => {
             >
               Category
             </button>
-            <ul className="dropdown-menu categoryListText" style={{background:"#2F2771"}}>
+            <ul
+              className="dropdown-menu categoryListText"
+              style={{ background: "#2F2771" }}
+            >
               <li>
                 <a className="dropdown-item" href="#">
                   Category A
@@ -37,13 +58,13 @@ const page = () => {
               </li>
               <li>
                 <a className="dropdown-item" href="#">
-                Category B
+                  Category B
                 </a>
               </li>
-                {/* <hr className="dropdown-divider" /> */}
+              {/* <hr className="dropdown-divider" /> */}
               <li>
                 <a className="dropdown-item" href="#">
-                Category C
+                  Category C
                 </a>
               </li>
             </ul>
@@ -63,24 +84,11 @@ const page = () => {
           </div>
         </div>
         <div className="row gx-5 gy-5 mt-3">
-          <div className="col-12 col-lg-4">
-            <Card />
-          </div>
-          <div className="col-12 col-lg-4">
-            <Card />
-          </div>
-          <div className="col-12 col-lg-4">
-            <Card />
-          </div>
-          <div className="col-12 col-lg-4">
-            <Card />
-          </div>
-          <div className="col-12 col-lg-4">
-            <Card />
-          </div>
-          <div className="col-12 col-lg-4">
-            <Card />
-          </div>
+          {eventdata.map((event) => (
+            <div key={event._id} className="col-12 col-lg-4">
+              <Card event={event} />
+            </div>
+          ))}
         </div>
       </div>
       <nav aria-label="Page navigation example">
