@@ -3,7 +3,7 @@ const { HUNTER_API } = require("../config");
 const axios = require("axios");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Event = require("../models/Event");
+const Event = require("../models/Schema/Event");
 
 const verifyemail = async (email) => {
   console.log(email, HUNTER_API);
@@ -73,13 +73,15 @@ const loginUser = async (req, res) => {
         sameSite: "None", // Necessary for cross-site requests
       })
       .json({
+        status: "ok",
         message: "Logged in successfully",
+        token: token,
+        userId: user._id,
       });
   } catch (error) {
     return res.status(500).json({ message: "error: " + error.message });
   }
 };
-
 
 module.exports = {
   registerUser,
