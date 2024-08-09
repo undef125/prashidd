@@ -7,7 +7,7 @@ body {
     /* width: 80vw; */
 }
 .dabba{
-    width: 80%;
+    width: 70%;
     margin: auto;
 }
 header {
@@ -37,10 +37,24 @@ nav ul li a {
 }
 
 .hero {
+    position: relative;
     display: flex;
     justify-content: space-between;
-    padding: 60px 20px;
-    background-color:  rgba(255,255,255,0.7);
+    align-items: center;
+    padding: 60px 50px;
+    height: 75vh;
+    /* background-color:  rgba(255,255,255,0.7); */
+    /* opacity: 0.5; */
+}
+.hero .backgroundImage{
+    position: absolute;
+    opacity: 0.2;
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+    height: 68vh;
+    -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 80%);
+    mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 80%);
 }
 
 .hero .content {
@@ -48,13 +62,14 @@ nav ul li a {
 }
 
 .hero .content h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 30px;
+    line-height: 2rem;
 }
 
 .hero .content p {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #666;
 }
 
@@ -74,6 +89,8 @@ nav ul li a {
     display: flex;
     justify-content: space-between;
     padding: 60px 20px;
+    /* background-color: red; */
+    align-items: center;
 }
 
 .mission .text {
@@ -155,7 +172,7 @@ nav ul li a {
 
 .blog {
     padding: 60px 20px;
-    background-color:  rgba(255,255,255,0.7);
+    background-color:  none;
 }
 
 .blog h2 {

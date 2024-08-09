@@ -18,15 +18,11 @@
       "static/css/app/events/page.css",
       "static/chunks/app/events/page.js"
     ],
-    "/eventdetail/[slug]/page": [
+    "/myevents/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/eventdetail/[slug]/page.js"
-    ],
-    "/eventcreate/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/eventcreate/page.js"
+      "static/css/app/myevents/page.css",
+      "static/chunks/app/myevents/page.js"
     ],
     "/login/page": [
       "static/chunks/webpack.js",
@@ -34,11 +30,27 @@
       "static/css/app/login/page.css",
       "static/chunks/app/login/page.js"
     ],
-    "/profile/[slug]/page": [
+    "/contactus/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/profile/[slug]/page.css",
-      "static/chunks/app/profile/[slug]/page.js"
+      "static/css/app/contactus/page.css",
+      "static/chunks/app/contactus/page.js"
+    ],
+    "/eventdetail/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/eventdetail/[slug]/page.js"
+    ],
+    "/aboutus/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/aboutus/page.css",
+      "static/chunks/app/aboutus/page.js"
+    ],
+    "/eventcreate/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/eventcreate/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",

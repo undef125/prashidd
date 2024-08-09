@@ -1,9 +1,11 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
+  "/events/page": "app/events/page.js",
   "/eventdetail/[slug]/page": "app/eventdetail/[slug]/page.js",
+  "/contactus/page": "app/contactus/page.js",
+  "/aboutus/page": "app/aboutus/page.js",
   "/eventcreate/page": "app/eventcreate/page.js",
-  "/page": "app/page.js",
+  "/myevents/page": "app/myevents/page.js",
   "/login/page": "app/login/page.js",
-  "/profile/[slug]/page": "app/profile/[slug]/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
+  "/page": "app/page.js"
 }

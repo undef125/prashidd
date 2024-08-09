@@ -1,6 +1,6 @@
 import React from "react";
 import "./Hero.css"
-import Card from "./Card";
+// import Card from "./Card";
 
 export const Hero = () => {
   return (
@@ -22,7 +22,6 @@ export const Hero = () => {
           </div>
         </div>
       </div>
-      <Card/>
     </>
   );
 };

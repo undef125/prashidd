@@ -1,4 +1,4 @@
-// File: C:\Users\DELL\Desktop\MWM\prashidd\frontend\app\eventcreate\page.jsx
+// File: E:\FYP-8th-sem\last final project\prashidd\frontend\app\eventcreate\page.jsx
 import * as entry from '../../../../app/eventcreate/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

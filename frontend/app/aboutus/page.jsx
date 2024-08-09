@@ -18,28 +18,28 @@ const Page = () => {
         </nav>
       </header> */}
       <div className="dabba">
-        <section className="hero">
-          <div className="content">
-            <h1>We’re changing the way people connect.</h1>
-            <p>
-              Cuptidatat minim id magna ipsum sint dolor qui. Sunt sit in quis
-              cupidatat mollit aute velit...
+        <section className="hero " >
+          <img src="lines.png" className="backgroundImage" alt="" />
+          <div className="content" >
+            <h1 className="">We’re changing the</h1>
+            <h1>way people connect.</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error tenetur atque quis quae fuga nobis odio sapiente, veniam quibusdam ex inventore quod totam. Quibusdam nam possimus, nesciunt aliquid veniam debitis rem officia esse ratione recusandae.
             </p>
           </div>
           <div className="images">
-            <img src="image1.jpg" alt="Image 1" />
-            <img src="image2.jpg" alt="Image 2" />
-            <img src="image3.jpg" alt="Image 3" />
+            <img src="1.jpg" alt="Image 1" />
+            <img src="1.jpg" alt="Image 2" />
+            <img src="1.jpg" alt="Image 3" />
           </div>
         </section>
 
         <section className="mission">
           <div className="text">
             <h2>Our mission</h2>
-            <p>
-              Aliquet nec orci mattis amet quisque ullamcorper neque, nibh
-              sem...
+            <p>Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien.
             </p>
+            <p>Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id.</p>
+            <p>Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.</p>
           </div>
           <div className="stats">
             <p>
