@@ -18,7 +18,7 @@ const getAllEvents = async (req, res) => {
     res.json({ messages: "events available", data: events });
   } catch (error) {
     console.error(error);
-  } 
+  }
 };
 
 const getSingleEvent = async (req, res) => {
@@ -49,6 +49,8 @@ const applyForEvent = async (req, res) => {
   }
 };
 const addComment = async (req, res) => {
+  console.log("API called");
+  console.log(req.body);
   try {
     const { eventId } = req.params;
     const updatedEvent = await Event.findByIdAndUpdate(

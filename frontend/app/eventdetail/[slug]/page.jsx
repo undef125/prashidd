@@ -12,32 +12,70 @@ import { BiParty } from "react-icons/bi";
 import { CiStar } from "react-icons/ci";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const page = () => {
   const { slug } = useParams();
-  const [eventData, seEventData] = useState();
+  const router = useRouter();
+  const [eventData, setEventData] = useState([]);
+  const [commentData, setCommentData] = useState([]);
+
+  const [eventsData, setEventsData] = useState([]);
+
+  const getevents = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/getevents");
+
+      console.log(response.data);
+      setEventsData(response.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // useEffect(() => {
+  //   getevents();
+  // });
   const getSingleEvent = async () => {
     try {
       const resp = await axios.get(`http://localhost:5000/getevent/${slug}`);
-      seEventData(resp.data.data)
+      setEventData(resp.data.data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const addComment = async () => {
+    console.log("button Cliekced");
+    console.log(commentData);
+    try {
+      await axios.post(
+        `http://localhost:5000/addcomment/${slug}`,
+        commentData,
+        {
+          withCredentials: true,
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (slug) {
       getSingleEvent();
     }
-  }, [slug]);
+    getevents();
+  }, []);
 
   return (
     <>
-    {console.log(eventData)}
+      {console.log(eventData)}
       <div className="container">
         <div>
           <div className="row">
-            <div className="col-lg-8">
+            <div className="col-lg-8 mt-5">
               <div className="card">
                 <img
                   src={eventData?.image}
@@ -65,64 +103,34 @@ const page = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4">
+            <div className="col-lg-4 mt-0">
               <h3>More Events</h3>
               <div
                 className="mt-2 mb-2"
                 style={{ height: "3px", backgroundColor: "#2F2771" }}
               ></div>
-              <div className="card mb-2">
-                <div className="card-body">
-                  <h3>Donate Blood</h3>
-                  <p>
-                    <BiParty />
-                    Donate Blood
-                  </p>
-                  <p>
-                    <FaCalendarAlt /> 2/2/2022
-                  </p>
-                  <p>Location</p>
+              {eventsData.slice(0, 3).map((event, index) => (
+                <div key={index} className="card mb-2">
+                  <div className="card-body">
+                    <h3>{event?.eventName}</h3>
+                    <p>
+                      <FaCalendarAlt /> {event?.date}
+                    </p>
+                    <p>
+                      <FaMapMarkerAlt /> {event?.location}
+                    </p>
+                    <a
+                      className="btn text-white"
+                      style={{ backgroundColor: "#2f2771" }}
+                      onClick={() => {
+                        router.push(`/eventdetail/${event._id}`);
+                      }}
+                    >
+                      Read more
+                    </a>
+                  </div>
                 </div>
-              </div>
-              <div className="card mb-2">
-                <div className="card-body">
-                  <h3>Donate Blood</h3>
-                  <p>
-                    <BiParty />
-                    Donate Blood
-                  </p>
-                  <p>
-                    <FaCalendarAlt /> 2/2/2022
-                  </p>
-                  <p>Location</p>
-                </div>
-              </div>
-              <div className="card mb-2">
-                <div className="card-body">
-                  <h3>Donate Blood</h3>
-                  <p>
-                    <BiParty />
-                    Donate Blood
-                  </p>
-                  <p>
-                    <FaCalendarAlt /> 2/2/2022
-                  </p>
-                  <p>Location</p>
-                </div>
-              </div>
-              <div className="card mb-2">
-                <div className="card-body">
-                  <h3>Donate Blood</h3>
-                  <p>
-                    <BiParty />
-                    Donate Blood
-                  </p>
-                  <p>
-                    <FaCalendarAlt /> 2/2/2022
-                  </p>
-                  <p>Location</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
           <div className="row">
@@ -134,7 +142,13 @@ const page = () => {
                 ></div>
 
                 <h2>Comments/ Reviews</h2>
-                <form action="">
+                <form
+                  method="POST"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    addComment();
+                  }}
+                >
                   <div className="form-group">
                     <label for="exampleFormControlTextarea1" className="mb-2">
                       Leave a Comment
@@ -143,6 +157,9 @@ const page = () => {
                       className="form-control"
                       id="exampleFormControlTextarea1"
                       rows="3"
+                      placeholder="Write your comment here"
+                      name="comment"
+                      onChange={(e) => setCommentData(e.target.value)}
                     ></textarea>
                   </div>
                   <button

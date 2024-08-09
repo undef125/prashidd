@@ -12,16 +12,38 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/eventdetail/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/eventdetail/[slug]/page.js"
-    ],
     "/events/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/events/page.css",
       "static/chunks/app/events/page.js"
+    ],
+    "/eventdetail/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/eventdetail/[slug]/page.js"
+    ],
+    "/eventcreate/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/eventcreate/page.js"
+    ],
+    "/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/login/page.css",
+      "static/chunks/app/login/page.js"
+    ],
+    "/profile/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/profile/[slug]/page.css",
+      "static/chunks/app/profile/[slug]/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }
