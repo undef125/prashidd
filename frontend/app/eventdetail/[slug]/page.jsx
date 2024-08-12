@@ -6,10 +6,11 @@ import {
   FaMapMarkerAlt,
   FaMap,
   FaRegUserCircle,
-  FaStar,
 } from "react-icons/fa";
+import { HiOutlineEmojiHappy } from "react-icons/hi";
+import { RiEmotionUnhappyLine } from "react-icons/ri";
+import { RiEmotionHappyLine } from "react-icons/ri";
 import { BiParty } from "react-icons/bi";
-import { CiStar } from "react-icons/ci";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -52,7 +53,9 @@ const page = () => {
     try {
       await axios.post(
         `http://localhost:5000/addcomment/${slug}`,
-        commentData,
+        {
+          comment: commentData,
+        },
         {
           withCredentials: true,
         }
@@ -74,8 +77,8 @@ const page = () => {
       {console.log(eventData)}
       <div className="container">
         <div>
-          <div className="row">
-            <div className="col-lg-8 mt-5">
+          <div className="row" style={{marginTop:"-15px"}}>
+            <div className="col-lg-8">
               <div className="card">
                 <img
                   src={eventData?.image}
@@ -103,13 +106,13 @@ const page = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 mt-0">
+            <div className="col-lg-4 mt-5">
               <h3>More Events</h3>
               <div
                 className="mt-2 mb-2"
                 style={{ height: "3px", backgroundColor: "#2F2771" }}
               ></div>
-              {eventsData.slice(0, 3).map((event, index) => (
+              {eventsData.slice(0, 4).map((event, index) => (
                 <div key={index} className="card mb-2">
                   <div className="card-body">
                     <h3>{event?.eventName}</h3>
@@ -170,66 +173,27 @@ const page = () => {
                     Submit
                   </button>
                 </form>
-                <div className="card mt-2">
-                  <div className="card-body">
-                    <p className="fw-bold">
-                      <FaRegUserCircle />
-                      BharatRand
-                    </p>
-                    <p>
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                      Et, deleniti nostrum nesciunt, velit ipsum blanditiis
-                      perspiciatis similique enim voluptatum aut voluptates
-                      porro tenetur quae!
-                    </p>
-                    <p>
-                      <FaStar />
-                      <CiStar />
-                      <CiStar />
-                      <CiStar />
-                      <CiStar />
-                    </p>
-                  </div>
-                </div>
-                <div className="card mt-2">
-                  <div className="card-body">
-                    <p className="fw-bold">
-                      <FaRegUserCircle />
-                      BharatRand
-                    </p>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Iure, possimus. Illum iste maiores delectus explicabo.
-                    </p>
-                    <p>
-                      <CiStar />
-                      <CiStar />
-                      <CiStar />
-                      <CiStar />
-                      <CiStar />
-                    </p>
-                  </div>
-                </div>
-                <div className="card mt-2">
-                  <div className="card-body">
-                    <p className="fw-bold">
-                      <FaRegUserCircle />
-                      BharatRand
-                    </p>
-                    <p>
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                      Cupiditate deleniti impedit dicta reiciendis asperiores
-                      excepturi sint velit quod possimus?
-                    </p>
-                    <p>
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <CiStar />
-                    </p>
-                  </div>
-                </div>
+                {eventData.comments && eventData.comments.length > 0 ? (
+                  eventData.comments.map((comment, index) => (
+                    <div className="card mt-2 d-flex flex-row justify-content-around align-item-center " key={index}>
+                      <div className="card-body">
+                        <p className="fw-bolder">{comment.by.name}</p>
+                        <p className="">{comment.comment}</p>
+                      </div>
+                      <div> <p className="fs-3 p-3">
+                        {comment.sentiment === "negative" ? (
+                          <RiEmotionUnhappyLine />
+                        ) : comment.sentiment == "neutral" ? (
+                          <HiOutlineEmojiHappy />
+                        ) : comment.sentiment == "positive" ? (
+                          <RiEmotionHappyLine />
+                        ) : null}</p>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p>No comments available.</p>
+                )}
               </div>
             </div>
           </div>

@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import axios from "axios";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 export default function Home() {
   const [eventdata, setEventData] = useState([]);
 
@@ -27,17 +27,15 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <div className="container"> 
-      <div className="row mt-5 gx-5 gy-5">
-        {
-          eventdata.map((event) => (
+      <div className="container">
+        <div className="row mt-5 gx-5 gy-5">
+          {eventdata.map((event) => (
             <div key={event._id} className="col-12 col-lg-4">
               <Card event={event} />
             </div>
-          ))
-        }
-        
-      </div></div>
+          ))}
+        </div>
+      </div>
     </>
   );
 }

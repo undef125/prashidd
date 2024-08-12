@@ -1,8 +1,20 @@
 "use client";
 import React from "react";
 import "./contactUs.css";
+import axios from "axios";
 
 const Page = () => {
+  const handleOnClick = async (e) => {
+    console.log("button click");
+    e.preventDefault();
+    const data = {
+      userName: e.target.userName.value,
+      userEmail: e.target.userEmail.value,
+      userMessage: e.target.userMessage.value,
+    };
+    console.log(data);
+    await axios.post("http://localhost:5000/contactus", data);
+  };
   return (
     <>
       <header className="header">
@@ -34,10 +46,19 @@ const Page = () => {
             Please fill out the quick form and we will be in touch with
             lightning speed.
           </p>
-          <form>
-            <input type="text" placeholder="Name" required />
-            <input type="email" placeholder="Your email address" required />
-            <textarea placeholder="Message" required></textarea>
+          <form method="POST" onSubmit={handleOnClick}>
+            <input type="text" placeholder="Name" name="userName" required />
+            <input
+              type="email"
+              placeholder="Your email address"
+              name="userEmail"
+              required
+            />
+            <textarea
+              placeholder="Message"
+              name="userMessage"
+              required
+            ></textarea>
             <button type="submit" className="btn getStartedButton2 ">
               SUBMIT
             </button>

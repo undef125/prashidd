@@ -21,62 +21,102 @@ a{
     color: red;
     cursor: pointer;
 }
+.Navbar{
+    position: sticky;
+}
 /*!*****************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./components/Hero.css ***!
   \*****************************************************************************************************************************************************************************************************************************************************************/
-
-
-.cardhoverchange:hover{
-  box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+.cardhoverchange:hover {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
   /* transition: all 100ms linear; */
   transform: scale(1.02);
   animation: myAnim 1s ease 0s 1 normal forwards;
 }
 @keyframes myAnim {
-	0% {
-		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-		transform: scale(1) translateY(0);
-	}
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    transform: scale(1) translateY(0);
+  }
 
-	100% {
-		box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.35);
-		transform: scale(1.01) translateY(-5px);
-	}
+  100% {
+    box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.35);
+    transform: scale(1.01) translateY(-5px);
+  }
 }
-.Navbar .navbar-toggler{
-    border-color: #fff !important;
-    background-color: rgba(255,255,255,0.7);
+.Navbar .navbar-toggler {
+  border-color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.7);
 }
-.Navbar .navbar-toggler .navbar-toggler-icon{
+.Navbar .navbar-toggler .navbar-toggler-icon {
   border-color: #fff !important;
 }
-@media(max-width:767px){
-    #carouselExampleCaptions{
-        height: auto !important;
-    }
-    #carouselExampleCaptions .carousel-item img{
-        height: auto;
-        width: 100%;
-        object-fit: contain;
-        object-position: center;
-    }
-}
-#carouselExampleCaptions{
-    background-color: #5EC9ED;
-    z-index: -10;
-}
-.blankwhitebackgroundbehindmalika{
-    height: 700px;
-    width: 700px;
-    background-color: white;
-    position: absolute;
-    z-index: -1;
-    transform: rotate(45deg);
-    top: -30%;
-}
-.heroImage{
-    height: 600px;
+@media (max-width: 767px) {
+  #carouselExampleCaptions {
+    height: auto !important;
+  }
+  #carouselExampleCaptions .carousel-item img {
+    height: auto;
+    width: 100%;
     object-fit: contain;
-    width: 600px;
-    z-index: 1;
+    object-position: center;
+  }
 }
+#carouselExampleCaptions {
+  background-color: #5ec9ed;
+  z-index: -10;
+}
+.blankwhitebackgroundbehindmalika {
+  height: 900px;
+  width: 900px;
+  background-color: white;
+  position: absolute;
+  z-index: -1;
+  transform: rotate(40deg);
+  top: -85%;
+  left: -10%;
+}
+.heroImage {
+  height: 600px;
+  object-fit: contain;
+  width: 600px;
+  z-index: 1;
+}
+
+/* for font animation */
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  font-weight: bold;
+  color: #000;
+  animation: blink 1s infinite;
+  font-size: 40px;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.heroSectionText {
+  width: 600px;
+  padding: 30px;
+  /* border: 10px solid red; */
+}
+.heroSectionText h1{
+    font-weight: bolder;
+    color: white;
+    text-align: center;
+}
+.hereYou{
+    font-weight: bold;
+    text-align: center;
+}
+/* for font animation */
+

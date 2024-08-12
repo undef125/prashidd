@@ -4,6 +4,8 @@ const axios = require("axios");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Event = require("../models/Schema/Event");
+const Admin = require("../models/Schema/Admin");
+const Contact = require("../models/Schema/Contact");
 
 const verifyemail = async (email) => {
   console.log(email, HUNTER_API);
@@ -82,8 +84,78 @@ const loginUser = async (req, res) => {
     return res.status(500).json({ message: "error: " + error.message });
   }
 };
+const loginAdmin = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const admin = await Admin.findOne({ email, password });
+    if (!admin) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    const token = await jwt.sign(
+      {
+        id: admin._id,
+      },
+      "myjwtsecrectisverygoodandyoucantdecrytpit",
+      { expiresIn: "5h" }
+    );
+    return res
+      .status(200)
+      .cookie("token", token, {
+        httpOnly: true,
+        maxAge: 900000, // 15 minutes
+        secure: true, // Ensures the cookie is sent only over HTTPS
+        sameSite: "None", // Necessary for cross-site requests
+      })
+      .json({
+        status: "ok",
+        message: "Logged in successfully",
+        token: token,
+        adminId: admin._id,
+      });
+  } catch (error) {
+    return res.status(500).json({ message: "error: " + error.message });
+  }
+};
+
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    if (users.length !== 0) {
+      res.json({ status: "okay", data: users });
+    }
+  } catch (error) {
+    res.json({ success: false, message: error });
+  }
+};
+
+const postQuery = async (req, res) => {
+  try {
+    // const { userName, userEmail, userMessage } = req.body;
+    const newContact = new Contact({
+      ...req.body,
+    });
+    const query = await newContact.save();
+    res.status(200).json({ message: "Query added", data: query });
+  } catch (error) {
+    res.status(400).json({ message: error, success: false });
+  }
+};
+
+const getQuery = async (req, res) => {
+  try {
+    const query = await Contact.find();
+    res.status(200).json({ message: "Query Fetched", data: query });
+  } catch (error) {
+    res.status(400).json({ message: error, success: false });
+  }
+};
 
 module.exports = {
   registerUser,
   loginUser,
+  loginAdmin,
+  getAllUsers,
+  postQuery,
+  getQuery,
 };

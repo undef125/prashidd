@@ -1,10 +1,9 @@
-
-
+/* 
 .container {
   width: 80%;
   margin: 0 auto;
   padding: 20px 0;
-}
+} */
 
 .header {
   background-image: linear-gradient(
@@ -23,12 +22,12 @@
   padding: 60px 0;
   height: 60vh;
 }
-
+/* 
 .header .logo {
   width: 50px;
   height: auto;
   margin-bottom: 20px;
-}
+} */
 
 .header h1 {
   font-size: 2.5em;
@@ -121,7 +120,8 @@
   color: #2f2771;
   border: none;
 }
-.getStartedButton2, .getStartedButton2:hover {
+.getStartedButton2,
+.getStartedButton2:hover {
   background-color: #2f2771;
   color: white;
   width: 100%;

@@ -1,4 +1,37 @@
 const Event = require("../models/Schema/Event");
+const User = require("../models/Schema/User");
+const { spawn } = require("child_process");
+
+function runPythonScript(text) {
+  return new Promise((resolve, reject) => {
+    const pythonProcess = spawn("python", ["./controller/sentiment.py", text], {
+      stdio: ["inherit", "pipe", "pipe"], // inherit stdin, capture stdout and stderr
+      env: {
+        ...process.env,
+        PYTHONWARNINGS: "ignore", // suppress Python warnings
+      },
+    });
+
+    let result = "";
+    let error = "";
+
+    pythonProcess.stdout.on("data", (data) => {
+      result += data.toString();
+    });
+
+    pythonProcess.stderr.on("data", (data) => {
+      error += data.toString();
+    });
+
+    pythonProcess.on("close", (code) => {
+      if (code !== 0) {
+        reject(`Python script exited with code ${code}. Error: ${error}`);
+      } else {
+        resolve(result.trim());
+      }
+    });
+  });
+}
 
 const addEvent = async (req, res) => {
   const { eventName, location, date, time, category, description } = req.body;
@@ -23,7 +56,10 @@ const getAllEvents = async (req, res) => {
 
 const getSingleEvent = async (req, res) => {
   try {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.params.id).populate({
+      path: "comments.by",
+      select: "name",
+    });
     if (!event) {
       return res.status(404).json({ message: "Event not found" });
     }
@@ -49,25 +85,35 @@ const applyForEvent = async (req, res) => {
   }
 };
 const addComment = async (req, res) => {
-  console.log("API called");
-  console.log(req.body);
   try {
     const { eventId } = req.params;
-    const updatedEvent = await Event.findByIdAndUpdate(
-      eventId,
-      {
-        $push: {
-          comments: {
-            comment: req.body.comment,
-            by: req.userId,
+    console.log(req.body);
+    let sentiment = "";
+    runPythonScript(req.body.comment)
+      .then(async (output) => {
+        sentiment = output.split(" ")[1];
+        console.log("Sentiment Analysis Result:", output.split(" ")[1]);
+        const updatedEvent = await Event.findByIdAndUpdate(
+          eventId,
+          {
+            $push: {
+              comments: {
+                comment: req.body.comment,
+                by: req.userId,
+                sentiment: output.split(" ")[1],
+              },
+            },
           },
-        },
-      },
-      { new: true }
-    );
-    return res
-      .status(200)
-      .json({ message: "Added comment successfully", updatedEvent });
+          { new: true }
+        );
+        return res
+          .status(200)
+          .json({ message: "Added comment successfully", updatedEvent });
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+      });
+    // const sentiment =
   } catch (error) {
     return res.status(500).json({ message: "error: " + error.message });
   }

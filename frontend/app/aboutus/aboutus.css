@@ -7,6 +7,7 @@ body {
     /* width: 80vw; */
 }
 .dabba{
+    /* height: 70vh; */
     width: 70%;
     margin: auto;
 }
@@ -43,6 +44,7 @@ nav ul li a {
     align-items: center;
     padding: 60px 50px;
     height: 75vh;
+    /* background-color: red; */
     /* background-color:  rgba(255,255,255,0.7); */
     /* opacity: 0.5; */
 }
@@ -56,20 +58,22 @@ nav ul li a {
     -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 80%);
     mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 80%);
 }
-
+*{
+    border: 1px solid red;
+}
 .hero .content {
     max-width: 50%;
 }
 
 .hero .content h1 {
-    font-size: 3rem;
+    font-size: 2.8rem;
     font-weight: 900;
     margin-bottom: 30px;
-    line-height: 2rem;
+    line-height: 1rem;
 }
 
 .hero .content p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #666;
 }
 
@@ -84,7 +88,14 @@ nav ul li a {
     object-fit: cover;
     border-radius: 10px;
 }
-
+.imageAtOurMisson{
+    height: 100%;
+    width: 100%;
+}
+.imageAtOurMisson img{
+    height: 50vh;
+    width: 100%;
+}
 .mission {
     display: flex;
     justify-content: space-between;

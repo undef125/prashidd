@@ -23,6 +23,11 @@ const eventSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
+      sentiment: {
+        type: String,
+        // enum: ["positive", "negative", "neutral"],
+        default: "neutral",
+      }
     },
   ],
 });
