@@ -14,7 +14,7 @@ export default function Home() {
     try {
       const response = await axios.get('http://localhost:5000/getevents');
 
-      console.log(response.data);
+      // console.log(response.data);
       setEventData(response.data.data);
     } catch (error) {
       console.error(error);
@@ -29,7 +29,7 @@ export default function Home() {
       <Hero />
       <div className="container">
         <div className="row mt-5 gx-5 gy-5">
-          {eventdata.map((event) => (
+          {eventdata.slice(0, 3).map((event) => (
             <div key={event._id} className="col-12 col-lg-4">
               <Card event={event} />
             </div>

@@ -47,7 +47,7 @@ const addEvent = async (req, res) => {
 
 const getAllEvents = async (req, res) => {
   try {
-    const events = await Event.find({});
+    const events = await Event.find({}).sort({ createdAt: -1 });
     res.json({ messages: "events available", data: events });
   } catch (error) {
     console.error(error);
@@ -119,10 +119,22 @@ const addComment = async (req, res) => {
   }
 };
 
+const deleteEvent = async (req, res) => {
+  const { eventId } = req.params;
+  // console.log(eventId);
+  try {
+    const event = await Event.findByIdAndDelete(eventId);
+    res.status(200).json({ message: "Successfully deleted!", success: true });
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+};
+
 module.exports = {
   addEvent,
   getAllEvents,
   getSingleEvent,
   applyForEvent,
   addComment,
+  deleteEvent,
 };

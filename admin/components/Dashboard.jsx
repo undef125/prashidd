@@ -6,6 +6,8 @@ import { BiSolidEdit } from "react-icons/bi";
 import axios from "axios";
 import "../src/app/admindashboard/admindashboard.css";
 import "simple-datatables/dist/style.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle";
 
 const Dashboard = () => {
   const [eventdata, setEventData] = useState([]);
@@ -22,6 +24,15 @@ const Dashboard = () => {
   useEffect(() => {
     getevents();
   }, []);
+
+  const deleteEvent = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/deleteevent/${id}`);
+      setEventData((prevData) => prevData.filter((ent) => ent._id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const tableRef = useRef(null);
 
@@ -143,8 +154,71 @@ const Dashboard = () => {
                       <td className="text-black">{event?.time}</td>
                       <td className="text-black">{event?.category}</td>
                       <th>
-                        <BiSolidEdit className="fs-3 text-success" />
-                        <MdOutlineDelete className="fs-3 text-danger" />
+                        {/* <button>
+                          <BiSolidEdit className="fs-3 text-success" />
+                        </button> */}
+                        {/* <!-- Button trigger modal --> */}
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          data-toggle="modal"
+                          data-target="#exampleModalCenter"
+                        >
+                          <BiSolidEdit className="fs-3 text-success" />
+                        </button>
+
+                        {/* <!-- Modal --> */}
+                        <div
+                          class="modal fade"
+                          id="exampleModalCenter"
+                          tabindex="-1"
+                          role="dialog"
+                          aria-labelledby="exampleModalCenterTitle"
+                          aria-hidden="true"
+                        >
+                          <div
+                            class="modal-dialog modal-dialog-centered"
+                            role="document"
+                          >
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5
+                                  class="modal-title"
+                                  id="exampleModalLongTitle"
+                                >
+                                  Modal title
+                                </h5>
+                                <button
+                                  type="button"
+                                  class="close"
+                                  data-dismiss="modal"
+                                  aria-label="Close"
+                                >
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">...</div>
+                              <div class="modal-footer">
+                                <button
+                                  type="button"
+                                  class="btn btn-secondary"
+                                  data-dismiss="modal"
+                                >
+                                  Close
+                                </button>
+                                <button type="button" class="btn btn-primary">
+                                  Save changes
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button>
+                          <MdOutlineDelete
+                            className="fs-3 text-danger"
+                            onClick={() => deleteEvent(event._id)}
+                          />
+                        </button>
                       </th>
                     </tr>
                   ))}

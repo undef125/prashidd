@@ -1,10 +1,28 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import "";
+// const getData = () => {
+//   const id = toast.loading("Please wait...")
+//   axios.get(`some-url`)
+//     .then(res => { 
+//        toast.update(id, {render: "All is good", type: "success", isLoading: false});
+//   }).catch(err => {
+//          toast.update(id, {render: "Something went wrong", type: "error", isLoading: false });
+//     });
+//  }
 
 const page = () => {
   const router = useRouter();
+
+  const notifyLogin = () => {
+    toast.success("Admin logged in successfully!");
+  };
+  const loginFail = () => {
+    toast.warn("Admin not found!");
+  };
 
   const hanldeOnSubmit = (event) => {
     console.log("hello!");
@@ -25,20 +43,20 @@ const page = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "ok") {
-          alert(data.message);
+          notifyLogin();
 
-        //   router.push(`/profile/${data.userId}`);
+          //   router.push(`/profile/${data.userId}`);
           router.push(`./admindashboard`);
+        } else {
+          loginFail();
         }
       })
       .catch((err) => console.error(err));
   };
   return (
     <>
-      <div
-        className=" my-5  adminLogin" 
-        style={{ padding: "80px 0" }}
-      >
+      <ToastContainer />
+      <div className=" my-5  adminLogin" style={{ padding: "80px 0" }}>
         <form
           className="container"
           action=""

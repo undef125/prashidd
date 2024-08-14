@@ -96,12 +96,12 @@ const loginAdmin = async (req, res) => {
       {
         id: admin._id,
       },
-      "myjwtsecrectisverygoodandyoucantdecrytpit",
+      "ac0edd353a2e52316dec466b12843b5facbc6467408d71325a9562876934aa88",
       { expiresIn: "5h" }
     );
     return res
       .status(200)
-      .cookie("token", token, {
+      .cookie("adminToken", token, {
         httpOnly: true,
         maxAge: 900000, // 15 minutes
         secure: true, // Ensures the cookie is sent only over HTTPS

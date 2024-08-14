@@ -24,6 +24,12 @@ const page = () => {
 
   const [eventsData, setEventsData] = useState([]);
 
+  const formatDate = (isoDateString) => {
+    const date = new Date(isoDateString);
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return date.toLocaleDateString(undefined, options);
+  };
+
   const getevents = async () => {
     try {
       const response = await axios.get("http://localhost:5000/getevents");
@@ -77,7 +83,7 @@ const page = () => {
       {console.log(eventData)}
       <div className="container">
         <div>
-          <div className="row" style={{marginTop:"-15px"}}>
+          <div className="row" style={{ marginTop: "-15px" }}>
             <div className="col-lg-8">
               <div className="card">
                 <img
@@ -97,7 +103,7 @@ const page = () => {
                     <FaClock /> {eventData?.time}
                   </p>
                   <p>
-                    <FaCalendarAlt /> {eventData?.date}
+                    <FaCalendarAlt /> {formatDate(eventData?.date)}
                   </p>
                   <p className="fs-5 fw-bold">
                     <FaMapMarkerAlt /> {eventData?.location}
@@ -175,19 +181,25 @@ const page = () => {
                 </form>
                 {eventData.comments && eventData.comments.length > 0 ? (
                   eventData.comments.map((comment, index) => (
-                    <div className="card mt-2 d-flex flex-row justify-content-around align-item-center " key={index}>
+                    <div
+                      className="card mt-2 d-flex flex-row justify-content-around align-item-center "
+                      key={index}
+                    >
                       <div className="card-body">
                         <p className="fw-bolder">{comment.by.name}</p>
                         <p className="">{comment.comment}</p>
                       </div>
-                      <div> <p className="fs-3 p-3">
-                        {comment.sentiment === "negative" ? (
-                          <RiEmotionUnhappyLine />
-                        ) : comment.sentiment == "neutral" ? (
-                          <HiOutlineEmojiHappy />
-                        ) : comment.sentiment == "positive" ? (
-                          <RiEmotionHappyLine />
-                        ) : null}</p>
+                      <div>
+                        {" "}
+                        <p className="fs-3 p-3">
+                          {comment.sentiment === "negative" ? (
+                            <RiEmotionUnhappyLine />
+                          ) : comment.sentiment == "neutral" ? (
+                            <HiOutlineEmojiHappy />
+                          ) : comment.sentiment == "positive" ? (
+                            <RiEmotionHappyLine />
+                          ) : null}
+                        </p>
                       </div>
                     </div>
                   ))

@@ -25,7 +25,7 @@ const page = () => {
   });
 
   return (
-    <>
+    <> 
       {" "}
       <div class="container">
         <div class="profile-header">

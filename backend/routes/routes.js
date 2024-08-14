@@ -21,6 +21,7 @@ const {
   getSingleEvent,
   applyForEvent,
   addComment,
+  deleteEvent,
 } = require("../controller/event.controller");
 
 router.post("/addevent", upload.single("image"), addEvent);
@@ -31,5 +32,6 @@ router.post("/addcomment/:eventId", verifyUserToken, addComment);
 router.get("/getusers", getAllUsers);
 router.post("/contactus", postQuery);
 router.get("/getquery", getQuery);
+router.delete("/deleteevent/:eventId", deleteEvent);
 
 module.exports = router;
