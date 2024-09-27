@@ -10,7 +10,12 @@ const jwt = require("jsonwebtoken");
 const app = express();
 app.use(
   cors({
-    origin: ["http://localhost:3000","http://localhost:3001"],
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "http://192.168.49.23:3001",
+      "http://192.168.49.23:3000",
+    ],
     credentials: true,
   })
 );
@@ -25,7 +30,6 @@ DBconnection();
 
 //verify student
 app.get("/verifyuser", (req, res) => {
-  
   const token = req.cookies.token;
   console.log(token);
   if (!token) {

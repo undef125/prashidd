@@ -30,16 +30,6 @@ eval("// Exports\nmodule.exports = {\n\t\"style\": {\"fontFamily\":\"'__Poppins_
 
 /***/ }),
 
-/***/ "(ssr)/./node_modules/next/font/google/target.css?{\"path\":\"app\\\\myevents\\\\page.jsx\",\"import\":\"Pacifico\",\"arguments\":[{\"subsets\":[\"latin\"],\"weight\":\"400\"}],\"variableName\":\"pacifico\"}":
-/*!**************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/next/font/google/target.css?{"path":"app\\myevents\\page.jsx","import":"Pacifico","arguments":[{"subsets":["latin"],"weight":"400"}],"variableName":"pacifico"} ***!
-  \**************************************************************************************************************************************************************************************/
-/***/ ((module) => {
-
-eval("// Exports\nmodule.exports = {\n\t\"style\": {\"fontFamily\":\"'__Pacifico_335c89', '__Pacifico_Fallback_335c89'\",\"fontWeight\":400,\"fontStyle\":\"normal\"},\n\t\"className\": \"__className_335c89\"\n};\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHNzcikvLi9ub2RlX21vZHVsZXMvbmV4dC9mb250L2dvb2dsZS90YXJnZXQuY3NzP3tcInBhdGhcIjpcImFwcFxcXFxteWV2ZW50c1xcXFxwYWdlLmpzeFwiLFwiaW1wb3J0XCI6XCJQYWNpZmljb1wiLFwiYXJndW1lbnRzXCI6W3tcInN1YnNldHNcIjpbXCJsYXRpblwiXSxcIndlaWdodFwiOlwiNDAwXCJ9XSxcInZhcmlhYmxlTmFtZVwiOlwicGFjaWZpY29cIn0iLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBLFdBQVcsdUdBQXVHO0FBQ2xIO0FBQ0EiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9wcmFzaGlkLy4vbm9kZV9tb2R1bGVzL25leHQvZm9udC9nb29nbGUvdGFyZ2V0LmNzcz8wNWE3Il0sInNvdXJjZXNDb250ZW50IjpbIi8vIEV4cG9ydHNcbm1vZHVsZS5leHBvcnRzID0ge1xuXHRcInN0eWxlXCI6IHtcImZvbnRGYW1pbHlcIjpcIidfX1BhY2lmaWNvXzMzNWM4OScsICdfX1BhY2lmaWNvX0ZhbGxiYWNrXzMzNWM4OSdcIixcImZvbnRXZWlnaHRcIjo0MDAsXCJmb250U3R5bGVcIjpcIm5vcm1hbFwifSxcblx0XCJjbGFzc05hbWVcIjogXCJfX2NsYXNzTmFtZV8zMzVjODlcIlxufTtcbiJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///(ssr)/./node_modules/next/font/google/target.css?{\"path\":\"app\\\\myevents\\\\page.jsx\",\"import\":\"Pacifico\",\"arguments\":[{\"subsets\":[\"latin\"],\"weight\":\"400\"}],\"variableName\":\"pacifico\"}\n");
-
-/***/ }),
-
 /***/ "(ssr)/./node_modules/next/dist/api/navigation.js":
 /*!**************************************************!*\
   !*** ./node_modules/next/dist/api/navigation.js ***!

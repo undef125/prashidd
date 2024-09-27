@@ -1,10 +1,10 @@
 {
   "pages": {
-    "/admindashboard/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/admindashboard/page.css",
-      "static/chunks/app/admindashboard/page.js"
+      "static/css/app/page.css",
+      "static/chunks/app/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -12,23 +12,11 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/page": [
+    "/admindashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/page.css",
-      "static/chunks/app/page.js"
-    ],
-    "/contactus/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/contactus/page.css",
-      "static/chunks/app/contactus/page.js"
-    ],
-    "/register/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/register/page.css",
-      "static/chunks/app/register/page.js"
+      "static/css/app/admindashboard/page.css",
+      "static/chunks/app/admindashboard/page.js"
     ],
     "/login/page": [
       "static/chunks/webpack.js",
@@ -36,16 +24,11 @@
       "static/css/app/login/page.css",
       "static/chunks/app/login/page.js"
     ],
-    "/profile/[slug]/page": [
+    "/register/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/profile/[slug]/page.css",
-      "static/chunks/app/profile/[slug]/page.js"
-    ],
-    "/eventdetail/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/eventdetail/[slug]/page.js"
+      "static/css/app/register/page.css",
+      "static/chunks/app/register/page.js"
     ],
     "/events/page": [
       "static/chunks/webpack.js",
@@ -53,11 +36,16 @@
       "static/css/app/events/page.css",
       "static/chunks/app/events/page.js"
     ],
-    "/myevents/page": [
+    "/eventdetail/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/myevents/page.css",
-      "static/chunks/app/myevents/page.js"
+      "static/chunks/app/eventdetail/[slug]/page.js"
+    ],
+    "/profile/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/profile/[slug]/page.css",
+      "static/chunks/app/profile/[slug]/page.js"
     ]
   }
 }
