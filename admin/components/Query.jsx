@@ -9,8 +9,6 @@ import "simple-datatables/dist/style.css";
 
 const Dashboard = () => {
   const [contactdata, setContactData] = useState([]);
-  console.log(contactdata);
-
   const getContact = async () => {
     try {
       const response = await axios.get("http://localhost:5000/getquery");

@@ -78,7 +78,7 @@ useEffect(() => {
                   </li>
                   <li className="nav-item">
                     <a className="nav-link text-white" onClick={()=>{router.push("/login")}}>
-                      Sign up
+                      Sign In
                     </a>
                   </li>
                 {

@@ -2,18 +2,19 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import "../register/register.css";
+import { toast } from "react-hot-toast";
 
 const page = () => {
   const router = useRouter();
 
   const hanldeOnSubmit = (event) => {
-    console.log("hello!");
+    const toastId = toast.loading("Logging In...");
     event.preventDefault();
     const data = {
       email: event.target.email.value,
       password: event.target.password.value,
     };
-    console.log(data);
+
     fetch("http://localhost:5000/adminlogin", {
       method: "POST",
       headers: {
@@ -25,13 +26,18 @@ const page = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "ok") {
-          alert(data.message);
-
-        //   router.push(`/profile/${data.userId}`);
+          toast.success(data.message);
+          toast.dismiss(toastId);
           router.push(`/admindashboard`);
+        } else {
+          toast.error("Failed to log in");
+          toast.dismiss(toastId);
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        toast.error("Failed to log in");
+        toast.dismiss(toastId);
+      });
   };
   return (
     <>

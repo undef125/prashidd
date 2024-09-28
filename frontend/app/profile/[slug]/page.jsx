@@ -7,6 +7,7 @@ import axios from "axios";
 import { useEffect, useContext, useState } from "react";
 import { useParams } from "next/navigation";
 import { contextAPI } from "@/context/ContextPro";
+import { toast } from "react-hot-toast";
 
 const page = () => {
   const { verifyUser } = useContext(contextAPI);
@@ -41,7 +42,7 @@ const page = () => {
   };
 
   const updateProfile = async (userId) => {
-    console.log(userId);
+    const toastId = toast.loading("Updating profile...");
     try {
       await axios.post(
         `http://localhost:5000/updateprofile/${userId}`,
@@ -50,19 +51,26 @@ const page = () => {
       getUserData(userId);
       setIsEditing(false);
       setUpdateData({});
+      toast.success("Updated Successfully!");
+      toast.dismiss(toastId);
     } catch (error) {
-      console.log("error updating profile", error);
+      toast.error("Error updating detail!");
+      toast.dismiss(toastId);
     }
   };
 
   const logoutUser = async () => {
+    const toastId = toast.loading("Logging Out...");
     try {
       await axios.get(`http://localhost:5000/logoutuser`, {
         withCredentials: true,
       });
       router.push("/");
+      toast.success("Logged Out Successfully!");
+      toast.dismiss(toastId);
     } catch (error) {
-      console.log("error loggin out!");
+      toast.error("Server Error");
+      toast.dismiss(toastId);
     }
   };
 
@@ -180,6 +188,9 @@ const page = () => {
                 onClick={() => {
                   setIsEditing(false);
                   setUpdateData({});
+                  toast.error("Canceled Updating!", {
+                    duration: 500
+                  });
                 }}
               >
                 Cancel

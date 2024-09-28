@@ -1,8 +1,9 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/events/page": "app/events/page.js",
-  "/myevents/[slug]/page": "app/myevents/[slug]/page.js",
   "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/register/page": "app/register/page.js",
+  "/myevents/[slug]/page": "app/myevents/[slug]/page.js",
   "/profile/[slug]/page": "app/profile/[slug]/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js"
 }

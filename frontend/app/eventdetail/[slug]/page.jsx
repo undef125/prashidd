@@ -15,6 +15,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const page = () => {
   const { slug } = useParams();
@@ -51,6 +52,7 @@ const page = () => {
   };
 
   const addComment = async () => {
+    const toastId = toast.loading("Adding Comment...");
     try {
       await axios.post(
         `http://localhost:5000/addcomment/${slug}`,
@@ -63,22 +65,38 @@ const page = () => {
       );
       getSingleEvent();
       setCommentData("");
+      toast.success("Comment added successfully");
+      toast.dismiss(toastId);
     } catch (error) {
-      console.log(error);
+      toast.success("Error while adding comment");
+      toast.dismiss(toastId);
     }
   };
 
   const registerForEvent = async (eventId) => {
+    const toastId = toast.loading("Updating profile...");
     try {
-      const resp = await axios.get(`http://localhost:5000/applyforevent/${eventId}`, {
-        withCredentials: true,
-      });
-      alert(resp.data.message)
-      if(resp.data.status === "applied"){
-        alert(resp.data.message);
+      const resp = await axios.get(
+        `http://localhost:5000/applyforevent/${eventId}`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (resp.data.status === "applied") {
+        toast.error(
+          resp.data.message ? resp.data.message : "Error registering!"
+        );
+        toast.dismiss(toastId);
+      } else {
+        toast.success(
+          resp.data.message ? resp.data.message : "Registered on the event!"
+        );
+        toast.dismiss(toastId);
       }
     } catch (error) {
-      console.log("error", error);
+      toast.error("Server Error!");
+      toast.dismiss(toastId);
     }
   };
 
@@ -129,7 +147,6 @@ const page = () => {
                   >
                     Register Here
                   </a>
-                  F
                 </div>
               </div>
             </div>
@@ -202,7 +219,7 @@ const page = () => {
                 </form>
                 {console.log(eventData.comments)}
                 {eventData.comments && eventData.comments.length > 0 ? (
-                  eventData.comments.slice(0,5).map((comment, index) => (
+                  eventData.comments.slice(0, 5).map((comment, index) => (
                     <div
                       className="card mt-2 d-flex flex-row justify-content-around align-item-center "
                       key={index}
@@ -217,7 +234,7 @@ const page = () => {
                           {comment.sentiment === "negative" ? (
                             <RiEmotionUnhappyLine className="text-danger" />
                           ) : comment.sentiment == "neutral" ? (
-                            <HiOutlineEmojiHappy  />
+                            <HiOutlineEmojiHappy />
                           ) : comment.sentiment == "positive" ? (
                             <RiEmotionHappyLine className="text-success" />
                           ) : null}

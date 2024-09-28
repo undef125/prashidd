@@ -11,8 +11,6 @@ import "bootstrap/dist/js/bootstrap.bundle";
 
 const Dashboard = () => {
   const [eventdata, setEventData] = useState([]);
-  console.log(eventdata);
-
   const getevents = async () => {
     try {
       const response = await axios.get("http://localhost:5000/getevents");

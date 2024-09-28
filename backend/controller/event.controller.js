@@ -1,6 +1,8 @@
 const Event = require("../models/Schema/Event");
 const User = require("../models/Schema/User");
 const { spawn } = require("child_process");
+const mongoose = require('mongoose');
+
 
 function runPythonScript(text) {
   return new Promise((resolve, reject) => {

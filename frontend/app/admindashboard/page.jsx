@@ -2,10 +2,18 @@
 import React, { useEffect, useState } from "react";
 import { Menu, Calendar, Tag, List } from "lucide-react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export default function Page() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [toUpdateEventId, setToUpdateEventId] = useState("");
+  const [isDelConfirm, setIsDelConfirm] = useState(false);
+  const [toDelId, setToDelId] = useState("");
+  const [isDelConfirmUser, setIsDelConfirmUser] = useState(false);
+  const [toDelIdUser, setToDelIdUser] = useState("");
+  const [isDelConfirmQuery, setIsDelConfirmQuery] = useState(false);
+  const [toDelIdQuery, setToDelIdQuery] = useState("");
   const [currentEvent, setCurrentEvent] = useState(null);
   const [events, setEvents] = useState([]);
   const [users, setUsers] = useState([]);
@@ -75,6 +83,7 @@ export default function Page() {
   };
 
   const handleUpdate = async (e) => {
+    const toastId = toast.loading("Updating event details...");
     e.preventDefault();
     try {
       const formData = new FormData();
@@ -99,42 +108,58 @@ export default function Page() {
         `http://localhost:5000/updateevent/${currentEvent?._id}`,
         formData
       );
-      console.log(resp.data);
-      alert(resp.data.message);
+      toast.success(resp.data.message);
+      toast.dismiss(toastId);
       closeUpdateModal();
       getevents();
     } catch (error) {
-      console.log(error);
+      toast.error("Error updating details!");
+      toast.dismiss(toastId);
     }
   };
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   const handleAddEvent = async (e) => {
+    const toastId = toast.loading("Adding Event...");
     e.preventDefault();
     const formData = new FormData(e.target);
 
     try {
       const res = await axios.post("http://localhost:5000/addevent", formData);
       e.target.reset();
+      toast.success("Event added successfully!");
+      toast.dismiss(toastId);
+      getevents();
     } catch (error) {
-      console.error(error);
+      toast.error("Error adding event!");
+      toast.dismiss(toastId);
     }
   };
+
   const deleteEvent = async (eventId) => {
+    const toastId = toast.loading("Deleting Event...");
     try {
       await axios.delete(`http://localhost:5000/deleteevent/${eventId}`);
       getevents();
+      toast.success("Event deleted successfully");
+      toast.dismiss(toastId);
     } catch (error) {
-      console.error(error);
+      toast.error("Error deleting event");
+      toast.dismiss(toastId);
     }
   };
   const deleteUser = async (userId) => {
+    const toastId = toast.loading("Updating profile...");
+
     try {
       await axios.delete(`http://localhost:5000/deleteuser/${userId}`);
       getAllUsers();
+      toast.success("User deleted successfully!");
+      toast.dismiss(toastId);
     } catch (error) {
-      console.error(error);
+      toast.error("Error deleting user^s*$");
+      toast.dismiss(toastId);
     }
   };
   const getevents = async () => {
@@ -165,11 +190,16 @@ export default function Page() {
     }
   };
   const deleteQuery = async (queryId) => {
+    const toastId = toast.loading("Deleting Query...");
     try {
       await axios.delete(`http://localhost:5000/deletequery/${queryId}`);
       getQueries();
+      toast.success("Query deleted successfully");
+      toast.dismiss(toastId);
     } catch (error) {
       console.error(error);
+      toast.error("Error deleting query");
+      toast.dismiss(toastId);
     }
   };
 
@@ -379,14 +409,19 @@ export default function Page() {
                           <td className="d-flex gap-3">
                             <button
                               className="btn btn-primary"
-                              onClick={() => openUpdateModal(event)}
+                              onClick={() => {
+                                openUpdateModal(event);
+                                setToUpdateEventId(event?._id);
+                              }}
                             >
                               Update
                             </button>
                             <button
                               className="btn btn-danger"
                               onClick={() => {
-                                deleteEvent(event._id);
+                                // deleteEvent(event._id);
+                                setToDelId(event._id);
+                                setIsDelConfirm(true);
                               }}
                             >
                               Delete
@@ -438,7 +473,8 @@ export default function Page() {
                             <button
                               className="btn btn-danger"
                               onClick={() => {
-                                deleteUser(user._id);
+                                setToDelIdUser(user._id);
+                                setIsDelConfirmUser(true);
                               }}
                             >
                               Delete
@@ -489,6 +525,8 @@ export default function Page() {
                               className="btn btn-danger"
                               onClick={() => {
                                 deleteQuery(query._id);
+                                setToDelIdQuery(query._id);
+                                setIsDelConfirmQuery(true);
                               }}
                             >
                               Delete
@@ -655,7 +693,14 @@ export default function Page() {
                     >
                       Cancel
                     </button>
-                    <button type="submit" className="btn btn-primary">
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      onClick={(e) => {
+                        setIsUpdateModalOpen(false);
+                        handleUpdate(e);
+                      }}
+                    >
                       Update
                     </button>
                   </div>
@@ -665,7 +710,130 @@ export default function Page() {
           </div>
         </div>
       )}
-      {isUpdateModalOpen && <div className="modal-backdrop show"></div>}
+      {isDelConfirm && (
+        <div className="modal show d-block" tabIndex="-1">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Deletion Confirmation</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={closeUpdateModal}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <div>
+                  <p>You surely want to delete ?</p>
+                  <div className="d-flex justify-content-end gap-3">
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => {
+                        setIsDelConfirm(false);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => {
+                        deleteEvent(toDelId);
+                        setIsDelConfirm(false);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {isDelConfirmUser && (
+        <div className="modal show d-block" tabIndex="-1">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Deletion Confirmation</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={closeUpdateModal}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <div>
+                  <p>You surely want to delete ?</p>
+                  <div className="d-flex justify-content-end gap-3">
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => {
+                        setIsDelConfirmUser(false);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => {
+                        deleteUser(toDelIdUser);
+                        setIsDelConfirmUser(false);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {isDelConfirmQuery && (
+        <div className="modal show d-block" tabIndex="-1">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Deletion Confirmation</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={closeUpdateModal}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <div>
+                  <p>You surely want to delete ?</p>
+                  <div className="d-flex justify-content-end gap-3">
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => {
+                        setIsDelConfirmQuery(false);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => {
+                        deleteQuery(toDelIdQuery);
+                        setIsDelConfirmQuery(false);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {(isUpdateModalOpen ||
+        isDelConfirm ||
+        isDelConfirmUser ||
+        isDelConfirmQuery) && <div className="modal-backdrop show"></div>}
     </>
   );
 }

@@ -3,6 +3,7 @@ import "./Hero.css";
 import { FaClock, FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const Card = ({ event }) => {
   const router = useRouter();
@@ -13,17 +14,27 @@ const Card = ({ event }) => {
   };
 
   const registerForEvent = async (eventId) => {
+    const toastId = toast.loading("Updating profile...");
     try {
-      const resp = await axios.get(`http://localhost:5000/applyforevent/${eventId}`, {
-        withCredentials: true,
-      });
-      alert(resp.data.message)
-      if(resp.data.status === "applied"){
-        alert(resp.data.message);
+      const resp = await axios.get(
+        `http://localhost:5000/applyforevent/${eventId}`,
+        {
+          withCredentials: true,
+        }
+      );
+      toast.success(
+        resp.data.message ? resp.data.message : "Registered on the event!"
+      );
+      toast.dismiss(toastId);
+      if (resp.data.status === "applied") {
+        toast.error(
+          resp.data.message ? resp.data.message : "Error registering!"
+        );
+        toast.dismiss(toastId);
       }
     } catch (error) {
-      
-      console.log("error", error);
+      toast.error("Server Error!");
+      toast.dismiss(toastId);
     }
   };
 

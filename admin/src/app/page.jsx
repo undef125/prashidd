@@ -25,13 +25,11 @@ const page = () => {
   };
 
   const hanldeOnSubmit = (event) => {
-    console.log("hello!");
     event.preventDefault();
     const data = {
       email: event.target.email.value,
       password: event.target.password.value,
     };
-    console.log(data);
     fetch("http://localhost:5000/adminlogin", {
       method: "POST",
       headers: {

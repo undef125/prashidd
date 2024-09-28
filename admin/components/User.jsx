@@ -9,8 +9,6 @@ import "simple-datatables/dist/style.css";
 
 const Dashboard = () => {
   const [userdata, setUserData] = useState([]);
-  console.log(userdata);
-
   const getusers = async () => {
     try {
       const response = await axios.get("http://localhost:5000/getusers");

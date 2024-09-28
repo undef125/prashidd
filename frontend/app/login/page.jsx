@@ -2,11 +2,14 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import "../register/register.css";
+import { toast } from "react-hot-toast";
 
 const page = () => {
   const router = useRouter();
 
   const hanldeOnSubmit = (event) => {
+    const toastId = toast.loading("Loggin in...");
+
     console.log("hello!");
     event.preventDefault();
     const data = {
@@ -25,12 +28,19 @@ const page = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "ok") {
-          alert(data.message);
-
+          toast.success("Log in successful !");
+          toast.dismiss(toastId);
+          console.log(data);
           router.push(`/profile/${data.userId}`);
+        } else {
+          toast.error("Login failed");
+          toast.dismiss(toastId);
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        toast.error("Login failed");
+        toast.dismiss(toastId);
+      });
   };
   return (
     <>
@@ -63,12 +73,19 @@ const page = () => {
               name="password"
             />
           </div>
-          
+
           <button type="submit" className="btn btn-primary">
             Log in
           </button>
           <div class="mb-3 mt-3">
-            <a className="text-primary text-decoration-none" onClick={()=>{router.push("/register")}}>Don't have an account? Sign in here</a>
+            <a
+              className="text-primary text-decoration-none"
+              onClick={() => {
+                router.push("/register");
+              }}
+            >
+              Don't have an account? Sign Up here
+            </a>
           </div>
         </form>
       </div>

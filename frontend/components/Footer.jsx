@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div style={{backgroundColor: "rgb(47, 39, 113)"}}>
+    <div style={{backgroundColor: "rgb(47, 39, 113)", marginTop: "3rem"}}>
       <div className="container">
         <footer className="py-5">
           <div className="row">

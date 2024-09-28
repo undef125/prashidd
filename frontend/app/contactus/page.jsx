@@ -2,9 +2,13 @@
 import React from "react";
 import "./contactUs.css";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const router = useRouter();
   const handleOnClick = async (e) => {
+    const toastId = toast.loading("Submitting your Query...");
     e.preventDefault();
     const data = {
       name: e.target.userName.value,
@@ -14,8 +18,11 @@ const Page = () => {
     try {
       console.log(data);
       await axios.post("http://localhost:5000/postquery", data);
+      toast.success("Query submitted!");
+      toast.dismiss(toastId);
     } catch (error) {
-      console.log(error);
+      toast.error("Server Error!");
+      toast.dismiss(toastId);
     }
   };
   return (
