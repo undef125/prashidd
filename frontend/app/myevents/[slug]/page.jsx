@@ -117,7 +117,7 @@ const page = () => {
             {recommendedEvents?.length > 0 ? (
               recommendedEvents?.map((event, index) => (
                 <div className="col-12 col-lg-4" key={index}>
-                  <Card event={event} />
+                  <Card event={event.event} />
                 </div>
               ))
             ) : (

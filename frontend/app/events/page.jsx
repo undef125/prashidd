@@ -14,9 +14,11 @@ const page = () => {
   const handleSearch = (e) => {
     setSearchQuery(e.target.value.toLowerCase());
   };
-  const filteredEvents = eventdata.filter((event) =>
-  event.eventName.toLowerCase().includes(searchQuery) || event.location.toLowerCase().includes(searchQuery)
-);
+  const filteredEvents = eventdata.filter(
+    (event) =>
+      event.eventName.toLowerCase().includes(searchQuery) ||
+      event.location.toLowerCase().includes(searchQuery)
+  );
 
   const getevents = async () => {
     try {
@@ -76,7 +78,7 @@ const page = () => {
               </li>
             </ul>
           </div>
-          
+
           <div>
             {/* <form className="d-flex" role="search">
               <input
@@ -89,19 +91,23 @@ const page = () => {
                 Search
               </button>
             </form> */}
-            <form className="d-flex" role="search" onSubmit={(e) => e.preventDefault()}>
-  <input
-    className="form-control me-2 searchBar"
-    type="search"
-    placeholder="Search events"
-    aria-label="Search"
-    value={searchQuery}
-    onChange={handleSearch} // Update input value
-  />
-  <button className="btn searchBox" type="submit">
-    Search
-  </button>
-</form>
+            <form
+              className="d-flex"
+              role="search"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <input
+                className="form-control me-2 searchBar"
+                type="search"
+                placeholder="Search events"
+                aria-label="Search"
+                value={searchQuery}
+                onChange={handleSearch} // Update input value
+              />
+              <button className="btn searchBox" type="submit">
+                Search
+              </button>
+            </form>
           </div>
         </div>
         <div className="row gx-5 gy-5 mt-3">
