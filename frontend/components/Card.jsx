@@ -4,9 +4,13 @@ import { FaClock, FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useContext } from "react";
+import { contextAPI } from "@/context/ContextPro";
 
 const Card = ({ event }) => {
   const router = useRouter();
+  const { userData } = useContext(contextAPI);
+
   const formatDate = (isoDateString) => {
     const date = new Date(isoDateString);
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -14,6 +18,12 @@ const Card = ({ event }) => {
   };
 
   const registerForEvent = async (eventId) => {
+    if (!userData) {
+      toast.error("Please Sign In First!", {
+        duration: 1000,
+      });
+      return
+    }
     const toastId = toast.loading("Updating profile...");
     try {
       const resp = await axios.get(

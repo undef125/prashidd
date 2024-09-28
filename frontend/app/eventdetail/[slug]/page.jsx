@@ -16,12 +16,15 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useContext } from "react";
+import { contextAPI } from "@/context/ContextPro";
 
 const page = () => {
   const { slug } = useParams();
   const router = useRouter();
   const [eventData, setEventData] = useState([]);
   const [commentData, setCommentData] = useState([]);
+  const { userData } = useContext(contextAPI);
 
   const [eventsData, setEventsData] = useState([]);
 
@@ -74,6 +77,12 @@ const page = () => {
   };
 
   const registerForEvent = async (eventId) => {
+    if (!userData) {
+      toast.error("Please Sign In First!", {
+        duration: 1000,
+      });
+      return
+    }
     const toastId = toast.loading("Updating profile...");
     try {
       const resp = await axios.get(
