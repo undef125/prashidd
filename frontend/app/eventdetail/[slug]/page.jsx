@@ -41,9 +41,6 @@ const page = () => {
     }
   };
 
-  // useEffect(() => {
-  //   getevents();
-  // });
   const getSingleEvent = async () => {
     try {
       const resp = await axios.get(`http://localhost:5000/getevent/${slug}`);
@@ -54,8 +51,6 @@ const page = () => {
   };
 
   const addComment = async () => {
-    console.log("button Cliekced");
-    console.log(commentData);
     try {
       await axios.post(
         `http://localhost:5000/addcomment/${slug}`,
@@ -66,8 +61,24 @@ const page = () => {
           withCredentials: true,
         }
       );
+      getSingleEvent();
+      setCommentData("");
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const registerForEvent = async (eventId) => {
+    try {
+      const resp = await axios.get(`http://localhost:5000/applyforevent/${eventId}`, {
+        withCredentials: true,
+      });
+      alert(resp.data.message)
+      if(resp.data.status === "applied"){
+        alert(resp.data.message);
+      }
+    } catch (error) {
+      console.log("error", error);
     }
   };
 
@@ -109,6 +120,16 @@ const page = () => {
                     <FaMapMarkerAlt /> {eventData?.location}
                   </p>
                   <p className="fs-6">{eventData?.description}</p>
+                  <a
+                    className="btn text-white"
+                    style={{ backgroundColor: "#2f2771" }}
+                    onClick={() => {
+                      registerForEvent(slug);
+                    }}
+                  >
+                    Register Here
+                  </a>
+                  F
                 </div>
               </div>
             </div>
@@ -179,25 +200,26 @@ const page = () => {
                     Submit
                   </button>
                 </form>
+                {console.log(eventData.comments)}
                 {eventData.comments && eventData.comments.length > 0 ? (
-                  eventData.comments.map((comment, index) => (
+                  eventData.comments.slice(0,5).map((comment, index) => (
                     <div
                       className="card mt-2 d-flex flex-row justify-content-around align-item-center "
                       key={index}
                     >
                       <div className="card-body">
-                        <p className="fw-bolder">{comment.by.name}</p>
-                        <p className="">{comment.comment}</p>
+                        <p className="fw-bolder">{comment?.by?.name}</p>
+                        <p className="">{comment?.comment}</p>
                       </div>
                       <div>
                         {" "}
                         <p className="fs-3 p-3">
                           {comment.sentiment === "negative" ? (
-                            <RiEmotionUnhappyLine />
+                            <RiEmotionUnhappyLine className="text-danger" />
                           ) : comment.sentiment == "neutral" ? (
-                            <HiOutlineEmojiHappy />
+                            <HiOutlineEmojiHappy  />
                           ) : comment.sentiment == "positive" ? (
-                            <RiEmotionHappyLine />
+                            <RiEmotionHappyLine className="text-success" />
                           ) : null}
                         </p>
                       </div>

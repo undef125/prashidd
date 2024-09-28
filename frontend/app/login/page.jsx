@@ -63,9 +63,13 @@ const page = () => {
               name="password"
             />
           </div>
+          
           <button type="submit" className="btn btn-primary">
             Log in
           </button>
+          <div class="mb-3 mt-3">
+            <a className="text-primary text-decoration-none" onClick={()=>{router.push("/register")}}>Don't have an account? Sign in here</a>
+          </div>
         </form>
       </div>
     </>

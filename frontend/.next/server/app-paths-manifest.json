@@ -1,9 +1,8 @@
 {
-  "/page": "app/page.js",
-  "/login/page": "app/login/page.js",
-  "/events/page": "app/events/page.js",
-  "/register/page": "app/register/page.js",
+  "/myevents/[slug]/page": "app/myevents/[slug]/page.js",
   "/eventdetail/[slug]/page": "app/eventdetail/[slug]/page.js",
-  "/profile/[slug]/page": "app/profile/[slug]/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
+  "/admindashboard/page": "app/admindashboard/page.js",
+  "/adminlogin/page": "app/adminlogin/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/events/page": "app/events/page.js"
 }

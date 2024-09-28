@@ -126,6 +126,12 @@ const page = () => {
             <button type="submit" className="btn btn-primary">
               Sign up
             </button>
+            <p>
+              Already have an account?{" "}
+              <a onClick={()=>{
+                router.push("/login")
+              }}>Login</a>
+            </p>
           </form>
         </div>
       </div>

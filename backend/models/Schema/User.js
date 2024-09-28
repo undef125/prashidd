@@ -11,11 +11,14 @@ const userSchema = new mongoose.Schema({
   interestedIn: [{
     type: String,
   }],
-  image: { type: String },
+
   gender: {
     type: String,
     // required: true,
 
+  },
+  createdAt: { type: Date, 
+    default: Date.now,
   },
 });
 

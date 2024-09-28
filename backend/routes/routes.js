@@ -8,13 +8,29 @@ const {
   loginUser,
   loginAdmin,
   getAllUsers,
-  postQuery,
-  getQuery,
+  removeUser,
+  getSingleUser,
+  updateUser,
+  logoutUser,
+  getAppliedEvents,
+  recommendedEvents,
 } = require("../controller/user.controller");
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/adminlogin", loginAdmin);
+router.post("/updateprofile/:userId", updateUser);
+router.get("/logoutuser", logoutUser);
+
+const {
+  postQuery,
+  getQuery,
+  removeQuery,
+} = require("../controller/contact.controller");
+router.post("/postquery", postQuery);
+router.get("/getqueries", getQuery);
+router.delete("/deletequery/:queryId", removeQuery);
+
 const {
   addEvent,
   getAllEvents,
@@ -22,16 +38,25 @@ const {
   applyForEvent,
   addComment,
   deleteEvent,
+  updateEvent,
 } = require("../controller/event.controller");
 
 router.post("/addevent", upload.single("image"), addEvent);
+router.put("/updateevent/:eventId", upload.single("image"), updateEvent);
 router.get("/getevents", getAllEvents);
 router.get("/getevent/:id", getSingleEvent);
-router.post("/applyforevent/:eventId", verifyUserToken, applyForEvent);
+router.get("/applyforevent/:eventId", verifyUserToken, applyForEvent);
 router.post("/addcomment/:eventId", verifyUserToken, addComment);
 router.get("/getusers", getAllUsers);
-router.post("/contactus", postQuery);
-router.get("/getquery", getQuery);
+router.get("/geteventsapplied/:userId", verifyUserToken, getAppliedEvents);
+
+router.get("/getrecommendedevents/:userId", verifyUserToken, recommendedEvents);
+
+// router.get("/getAppliedEvents/:userId",verifyUserToken, getAppliedEvents);
+
+router.get("/getuser/:userId", getSingleUser);
+
 router.delete("/deleteevent/:eventId", deleteEvent);
+router.delete("/deleteuser/:userId", removeUser);
 
 module.exports = router;

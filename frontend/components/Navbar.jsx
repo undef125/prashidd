@@ -6,7 +6,15 @@ import { CgProfile } from "react-icons/cg";
 import { useRouter } from "next/navigation";
 import "./navbar.css"
 import "./Hero.css";
+import { contextAPI } from "@/context/ContextPro";
+import { useContext,useEffect } from "react";
 const Navbar = () => {
+  const {userData, verifyUser,userId} = useContext(contextAPI);
+
+useEffect(() => {
+  verifyUser()
+})
+
   const router = useRouter();
   return (
     <>
@@ -54,7 +62,7 @@ const Navbar = () => {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link text-white" onClick={()=> {router.push("/myevents")}}>
+                    <a className="nav-link text-white" onClick={()=> {router.push(`/myevents/${userId}`)}}>
                       My events
                     </a>
                   </li>
@@ -69,15 +77,18 @@ const Navbar = () => {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link text-white" href="#">
-                      Log out
+                    <a className="nav-link text-white" onClick={()=>{router.push("/login")}}>
+                      Sign up
                     </a>
                   </li>
-                  <li className="nav-item">
-                    <a className="nav-link text-white" onClick={()=> {router.push("/profile")}}>
-                    <CgProfile />
-                    </a>
-                  </li>
+                {
+                  userData && <li className="nav-item">
+                  <a className="nav-link text-white" onClick={()=> {router.push(`/profile/${userId}`)}}>
+                  <CgProfile />
+                  </a>
+                </li>
+                }
+                  
                 </ul>
                 {/* <form className="d-flex mt-0" role="search">
                   <input

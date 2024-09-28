@@ -45,6 +45,36 @@ const addEvent = async (req, res) => {
   }
 };
 
+const updateEvent = async (req, res) => {
+  try {
+    console.log(req.body);
+    const { eventId } = req.params;
+
+    // Parse and filter the appliedBy array if it exists
+    if (req.body.appliedBy) {
+      req.body.appliedBy = JSON.parse(req.body.appliedBy).filter(
+        (id) => id && mongoose.Types.ObjectId.isValid(id)
+      );
+    }
+
+    // Parse comments if it exists
+    if (req.body.comments) {
+      req.body.comments = JSON.parse(req.body.comments);
+    }
+
+    // If an image was uploaded, set the image field
+    if (req.file) {
+      req.body.image = `http://localhost:5000/uploads/${req.file.filename}`;
+    }
+    const updatedEvent = await Event.findByIdAndUpdate(eventId, req.body, {
+      new: true,
+    });
+    res.json({ message: "Event updated successfully", data: updatedEvent });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const getAllEvents = async (req, res) => {
   try {
     const events = await Event.find({}).sort({ createdAt: -1 });
@@ -72,6 +102,17 @@ const getSingleEvent = async (req, res) => {
 const applyForEvent = async (req, res) => {
   try {
     const { eventId } = req.params;
+    const eventSelected = await Event.find({
+      _id: eventId,
+      appliedBy: { $eq: req.userId },
+    });
+    if (eventSelected.length > 0) {
+      console.log(eventSelected);
+      return res.json({
+        message: "You have already applied for this event",
+        status: "applied",
+      });
+    }
     const updatedEvent = await Event.findByIdAndUpdate(
       eventId,
       { $push: { appliedBy: req.userId } },
@@ -84,6 +125,7 @@ const applyForEvent = async (req, res) => {
     return res.status(500).json({ message: "error: " + error.message });
   }
 };
+
 const addComment = async (req, res) => {
   try {
     const { eventId } = req.params;
@@ -137,4 +179,5 @@ module.exports = {
   applyForEvent,
   addComment,
   deleteEvent,
+  updateEvent,
 };

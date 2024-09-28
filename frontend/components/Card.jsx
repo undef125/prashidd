@@ -1,33 +1,78 @@
 import React from "react";
 import "./Hero.css";
-import { FaClock, FaCalendarAlt, FaMapMarkerAlt  } from "react-icons/fa";
+import { FaClock, FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-const Card = ({event}) => {
+import axios from "axios";
+
+const Card = ({ event }) => {
   const router = useRouter();
   const formatDate = (isoDateString) => {
     const date = new Date(isoDateString);
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options = { year: "numeric", month: "long", day: "numeric" };
     return date.toLocaleDateString(undefined, options);
   };
 
+  const registerForEvent = async (eventId) => {
+    try {
+      const resp = await axios.get(`http://localhost:5000/applyforevent/${eventId}`, {
+        withCredentials: true,
+      });
+      alert(resp.data.message)
+      if(resp.data.status === "applied"){
+        alert(resp.data.message);
+      }
+    } catch (error) {
+      
+      console.log("error", error);
+    }
+  };
+
   return (
-    <a className="text-decoration-none" onClick={()=>{router.push(`/eventdetail/${event?._id}`)}}>
-    <div className="card cardhoverchange ">
-      <img
-        src={event?.image}
-        alt="Placeholder"
-        style={{ height: "200px", width: "100%" }}
-      />
-      <div className="card-body">
-        <div className="d-flex justify-content-between">
-          <p className="fw-bold"><FaCalendarAlt /> {formatDate(event?.date)}</p>
-          <p className="fw-bold"><FaClock /> {event?.time}</p>
+    <a
+      className="text-decoration-none"
+      style={{
+        cursor: "pointer",
+      }}
+    >
+      <div className="card cardhoverchange ">
+        <img
+          onClick={() => {
+            router.push(`/eventdetail/${event?._id}`);
+          }}
+          src={event?.image}
+          alt="Placeholder"
+          style={{ height: "200px", width: "100%" }}
+        />
+        <div className="card-body">
+          <div
+            onClick={() => {
+              router.push(`/eventdetail/${event?._id}`);
+            }}
+          >
+            <div className="d-flex justify-content-between">
+              <p className="fw-bold">
+                <FaCalendarAlt /> {formatDate(event?.date)}
+              </p>
+              <p className="fw-bold">
+                <FaClock /> {event?.time}
+              </p>
+            </div>
+            <h3 className="card-title fw-bold">{event?.eventName}</h3>
+            <p>
+              <FaMapMarkerAlt /> {event?.location}
+            </p>
+          </div>
+          <a
+            className="btn text-white"
+            style={{ backgroundColor: "#2f2771" }}
+            onClick={() => {
+              registerForEvent(event?._id);
+            }}
+          >
+            Register Here
+          </a>
         </div>
-        <h3 className="card-title fw-bold">{event?.eventName}</h3>
-        <p ><FaMapMarkerAlt/>  {event?.location}</p>
-        <a className="btn text-white" style={{backgroundColor:"#2f2771"}} onClick={()=>{router.push(`/eventdetail/${event._id}`)}}>Register Here</a>
       </div>
-    </div>
     </a>
   );
 };

@@ -6,24 +6,29 @@ import Footer from "../components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import axios from "axios";
+import { useContext } from "react";
+import { contextAPI } from "@/context/ContextPro";
+
 import { useEffect, useState } from "react";
 export default function Home() {
   const [eventdata, setEventData] = useState([]);
+  const { verifyUser } = useContext(contextAPI);
 
-  const getevents = async () =>{
+  const getevents = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/getevents');
+      const response = await axios.get("http://localhost:5000/getevents");
 
       // console.log(response.data);
       setEventData(response.data.data);
     } catch (error) {
       console.error(error);
     }
-  }
-  useEffect(()=>{
-     getevents();
-  })
-  
+  };
+  useEffect(() => {
+    getevents();
+    verifyUser();
+  }, []);
+
   return (
     <>
       <Hero />
@@ -39,4 +44,3 @@ export default function Home() {
     </>
   );
 }
- 

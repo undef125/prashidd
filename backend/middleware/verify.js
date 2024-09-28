@@ -2,6 +2,9 @@ const jwt = require("jsonwebtoken");
 
 const verifyUserToken = (req, res, next) => {
   const token = req.cookies.token;
+  console.log("--------------------------------");
+  console.log(req.cookies);
+  console.log("--------------------------------");
 
   if (!token) {
     return res.status(403).json({ message: "No token provided" });
@@ -9,7 +12,10 @@ const verifyUserToken = (req, res, next) => {
 
   try {
     // Verify the token
-    const decoded = jwt.verify(token, "myjwtsecrectisverygoodandyoucantdecrytpit"); // Replace 'your_secret_key' with your actual secret key
+    const decoded = jwt.verify(
+      token,
+      "myjwtsecrectisverygoodandyoucantdecrytpit"
+    ); // Replace 'your_secret_key' with your actual secret key
 
     // Forward the ID inside the token
     req.userId = decoded.id;

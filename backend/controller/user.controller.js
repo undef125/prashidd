@@ -1,11 +1,12 @@
 const User = require("../models/Schema/User");
+const Event = require("../models/Schema/Event");
 const { HUNTER_API } = require("../config");
 const axios = require("axios");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Event = require("../models/Schema/Event");
 const Admin = require("../models/Schema/Admin");
-const Contact = require("../models/Schema/Contact");
+const cosineSimilarity = require("cosine-similarity");
+const natural = require("natural");
 
 const verifyemail = async (email) => {
   console.log(email, HUNTER_API);
@@ -59,7 +60,7 @@ const loginUser = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({ message: "Incorrect password" });
     }
-    const token = await jwt.sign(
+    const token = jwt.sign(
       {
         id: user._id,
       },
@@ -70,7 +71,7 @@ const loginUser = async (req, res) => {
       .status(200)
       .cookie("token", token, {
         httpOnly: true,
-        maxAge: 900000, // 15 minutes
+        maxAge: 1000 * 60 * 60 * 2, // 2 hours
         secure: true, // Ensures the cookie is sent only over HTTPS
         sameSite: "None", // Necessary for cross-site requests
       })
@@ -92,7 +93,7 @@ const loginAdmin = async (req, res) => {
       return res.status(404).json({ message: "Admin not found" });
     }
 
-    const token = await jwt.sign(
+    const token = jwt.sign(
       {
         id: admin._id,
       },
@@ -103,7 +104,7 @@ const loginAdmin = async (req, res) => {
       .status(200)
       .cookie("adminToken", token, {
         httpOnly: true,
-        maxAge: 900000, // 15 minutes
+        maxAge: 1000 * 60 * 60 * 2, // 2hrs
         secure: true, // Ensures the cookie is sent only over HTTPS
         sameSite: "None", // Necessary for cross-site requests
       })
@@ -120,7 +121,7 @@ const loginAdmin = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find().select("name gender email batch");
     if (users.length !== 0) {
       res.json({ status: "okay", data: users });
     }
@@ -128,27 +129,132 @@ const getAllUsers = async (req, res) => {
     res.json({ success: false, message: error });
   }
 };
-
-const postQuery = async (req, res) => {
+const removeUser = async (req, res) => {
   try {
-    // const { userName, userEmail, userMessage } = req.body;
-    const newContact = new Contact({
-      ...req.body,
-    });
-    const query = await newContact.save();
-    res.status(200).json({ message: "Query added", data: query });
+    const userId = req.params.userId;
+    const user = await User.findByIdAndDelete(userId);
+    return res
+      .status(200)
+      .json({ message: "User deleted successfully", success: true });
   } catch (error) {
-    res.status(400).json({ message: error, success: false });
+    return res.status(400).json({ message: "error deleting user" });
+  }
+};
+const getSingleUser = async (req, res) => {
+  console.log("here I am");
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json({ status: "okay", data: user });
+  } catch (error) {
+    return res.status(500).json({ message: "error fetching user" });
   }
 };
 
-const getQuery = async (req, res) => {
+const updateUser = async (req, res) => {
   try {
-    const query = await Contact.find();
-    res.status(200).json({ message: "Query Fetched", data: query });
+    const { userId } = req.params;
+    console.log(userId);
+    const updatedUser = await User.findByIdAndUpdate(userId, {
+      $set: req.body,
+    });
+    console.log(updatedUser);
+    return res.status(200).json({ status: "ok" });
   } catch (error) {
-    res.status(400).json({ message: error, success: false });
+    return res.status(500).json({ message: "error fetching user" });
   }
+};
+
+const logoutUser = (req, res) => {
+  try {
+    // Clear the token cookie by setting it to an empty value and a past expiration date
+    return res
+      .status(200)
+      .cookie("token", "", {
+        httpOnly: true,
+        expires: new Date(0), // Expire immediately
+        secure: true, // Ensures the cookie is sent only over HTTPS
+        sameSite: "None", // Necessary for cross-site requests
+      })
+      .json({ status: "ok", message: "Logged out successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "error: " + error.message });
+  }
+};
+
+const getAppliedEvents = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const eventsApplied = await Event.find({
+      appliedBy: {
+        $eq: userId,
+      },
+    });
+    console.log("------------------------------", eventsApplied);
+    console.log("------------------------------");
+    return res.status(200).send(eventsApplied);
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+const recommendedEvents = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId);
+    const eventsApplied = await Event.find({
+      appliedBy: {
+        $eq: userId,
+      },
+    });
+    const appliedEventText = eventsApplied
+      .map((event) => {
+        return event.description;
+      })
+      .join(" ");
+
+    const userInterest = user.interestedIn.join(" ") || "";
+    const tokenizer = new natural.WordTokenizer();
+    const userHistroy = `${userInterest} ${appliedEventText}`.trim();
+
+    const allEvents = await Event.find();
+    const userToken = tokenizer.tokenize(userHistroy);
+    const similarEventsForUser = allEvents.map((event) => {
+      const eventTokens = tokenizer.tokenize(event.description);
+
+      const userFreqVector = createTermFrequencyVector(userToken, eventTokens);
+      const eventFreqVector = createTermFrequencyVector(eventTokens, userToken);
+
+      const similarityScore = cosineSimilarity(userFreqVector, eventFreqVector);
+
+      return { event, similarityScore };
+    });
+
+    console.log(similarEventsForUser);
+
+    const sortedEvents = similarEventsForUser
+      .filter((event) => event.similarityScore > 0.4)
+      .sort((a, b) => b.similarityScore - a.similarityScore)
+      .slice(0, 5);
+
+    return res.status(200).json({
+      success: true,
+      data: sortedEvents,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const createTermFrequencyVector = (tokensA, tokensB) => {
+  const allTokens = Array.from(new Set([...tokensA, ...tokensB]));
+  const freqVector = allTokens.map(
+    (token) => tokensA.filter((t) => t === token).length
+  );
+  return freqVector;
 };
 
 module.exports = {
@@ -156,6 +262,10 @@ module.exports = {
   loginUser,
   loginAdmin,
   getAllUsers,
-  postQuery,
-  getQuery,
+  removeUser,
+  getSingleUser,
+  updateUser,
+  logoutUser,
+  getAppliedEvents,
+  recommendedEvents,
 };

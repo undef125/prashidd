@@ -5,15 +5,18 @@ import axios from "axios";
 
 const Page = () => {
   const handleOnClick = async (e) => {
-    console.log("button click");
     e.preventDefault();
     const data = {
-      userName: e.target.userName.value,
-      userEmail: e.target.userEmail.value,
-      userMessage: e.target.userMessage.value,
+      name: e.target.userName.value,
+      email: e.target.userEmail.value,
+      message: e.target.userMessage.value,
     };
-    console.log(data);
-    await axios.post("http://localhost:5000/contactus", data);
+    try {
+      console.log(data);
+      await axios.post("http://localhost:5000/postquery", data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>

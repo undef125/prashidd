@@ -1,8 +1,8 @@
-
 import { Inter, Roboto, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ContextProvider from "@/context/ContextPro";
 
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({ subsets: ["latin"], weight: "400" });
@@ -17,11 +17,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <Navbar />
-        {children}
-        <Footer/>
-        </body>
-        
+
+        <ContextProvider>
+          {" "}
+          <Navbar />
+          {children}
+          {/* <Footer /> */}
+        </ContextProvider>
+      </body>
     </html>
   );
 }

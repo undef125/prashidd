@@ -6,6 +6,7 @@ const cors = require("cors");
 const router = require("./routes/routes");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
+const Admin = require("./models/Schema/Admin")
 
 const app = express();
 app.use(
@@ -48,6 +49,18 @@ app.get("/verifyuser", (req, res) => {
     }
   );
 });
+
+app.post("/addAdmin",async(req, res) => {
+  const {email, password} = req.body;
+  const admin = new Admin({
+    email,
+    password,
+  })
+  await admin.save()
+  res.json({message:"Admin Created"})
+
+}
+)
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

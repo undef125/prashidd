@@ -58,9 +58,6 @@ nav ul li a {
     -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 80%);
     mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 80%);
 }
-*{
-    border: 1px solid red;
-}
 .hero .content {
     max-width: 50%;
 }
